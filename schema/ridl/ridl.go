@@ -151,8 +151,14 @@ func (p *Parser) parse() (*schema.WebRPCSchema, error) {
 
 	// pushing basics
 	for _, line := range q.root.Basics() {
+		var basicType schema.VarType
+		err := schema.ParseVarTypeExpr(s, line.TypeName().String(), &basicType)
+		if err != nil {
+			return nil, fmt.Errorf("basic %q: unknown type: %v", line.Name(), line.TypeName())
+		}
 		t := schema.Type{
 			Kind: schema.TypeKind_Basic,
+			Type: &basicType,
 			Name: line.Name().String(),
 		}
 
