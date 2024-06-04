@@ -630,6 +630,58 @@ func TestParserEnum(t *testing.T) {
 	}
 }
 
+func TestParseBasic(t *testing.T) {
+	{
+		p, err := newStringParser(`
+			basic
+		`)
+		assert.NoError(t, err)
+
+		err = p.run()
+		assert.Error(t, err, "expecting basic name")
+	}
+
+	{
+		p, err := newStringParser(`
+			basic Foo
+		`)
+		assert.NoError(t, err)
+
+		err = p.run()
+		assert.Error(t, err, "expecting basic type")
+	}
+
+	{
+		p, err := newStringParser(`
+			basic Foo:
+		`)
+		assert.NoError(t, err)
+
+		err = p.run()
+		assert.Error(t, err, "expecting basic type")
+	}
+
+	{
+		p, err := newStringParser(`
+			basic Foo: []byte
+		`)
+		assert.NoError(t, err)
+
+		err = p.run()
+		assert.NoError(t, err)
+	}
+	{
+		p, err := newStringParser(`
+			basic Foo: map<string,any>
+				+ go.type = json.RawMessage
+		`)
+		assert.NoError(t, err)
+
+		err = p.run()
+		assert.NoError(t, err)
+	}
+}
+
 func TestParserStruct(t *testing.T) {
 	{
 		p, err := newStringParser(`

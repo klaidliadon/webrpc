@@ -19,6 +19,15 @@
    ]
   },
   {
+   "kind": "basic",
+   "name": "Message",
+   "meta": [
+    {
+     "go.type": "json.RawMessage"
+    }
+   ]
+  },
+  {
    "kind": "struct",
    "name": "Simple",
    "fields": [
@@ -113,6 +122,10 @@
     {
      "name": "user",
      "type": "User"
+    },
+    {
+     "name": "basic",
+     "type": "Message"
     },
     {
      "name": "status",
@@ -334,6 +347,30 @@
       {
        "name": "complex",
        "type": "Complex",
+       "optional": false
+      }
+     ],
+     "outputs": []
+    },
+    {
+     "name": "GetMessage",
+     "comments": [],
+     "inputs": [],
+     "outputs": [
+      {
+       "name": "message",
+       "type": "Message",
+       "optional": false
+      }
+     ]
+    },
+    {
+     "name": "SendMessage",
+     "comments": [],
+     "inputs": [
+      {
+       "name": "message",
+       "type": "Message",
        "optional": false
       }
      ],

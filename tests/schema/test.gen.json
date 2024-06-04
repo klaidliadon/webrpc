@@ -19,6 +19,15 @@
    ]
   },
   {
+   "kind": "basic",
+   "name": "Message",
+    "meta": [
+    {
+    "go.type": "json.RawMessage"
+    }
+    ]
+   },
+  {
    "kind": "struct",
    "name": "Simple",
    "fields": [

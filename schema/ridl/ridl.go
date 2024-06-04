@@ -149,6 +149,24 @@ func (p *Parser) parse() (*schema.WebRPCSchema, error) {
 		})
 	}
 
+	// pushing basics
+	for _, line := range q.root.Basics() {
+		t := schema.Type{
+			Kind: schema.TypeKind_Basic,
+			Name: line.Name().String(),
+		}
+
+		meta := line.Meta()
+		t.TypeExtra.Meta = make([]schema.TypeFieldMeta, 0, len(meta))
+		for _, m := range meta {
+			t.TypeExtra.Meta = append(t.TypeExtra.Meta, schema.TypeFieldMeta{
+				m.Left().String(): m.Right().String(),
+			})
+		}
+
+		s.Types = append(s.Types, &t)
+	}
+
 	// pushing types (1st pass)
 	for _, line := range q.root.Structs() {
 		s.Types = append(s.Types, &schema.Type{

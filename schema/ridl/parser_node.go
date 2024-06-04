@@ -9,6 +9,7 @@ const (
 	DefinitionNodeType
 	ImportNodeType
 	EnumNodeType
+	BasicNodeType
 	StructNodeType
 	ErrorNodeType
 	ArgumentNodeType
@@ -110,6 +111,17 @@ func (rn RootNode) Enums() []*EnumNode {
 	enumNodes := make([]*EnumNode, 0, len(nodes))
 	for i := range nodes {
 		enumNodes = append(enumNodes, nodes[i].(*EnumNode))
+	}
+
+	return enumNodes
+}
+
+func (rn RootNode) Basics() []*BasicNode {
+	nodes := rn.Filter(BasicNodeType)
+
+	enumNodes := make([]*BasicNode, 0, len(nodes))
+	for i := range nodes {
+		enumNodes = append(enumNodes, nodes[i].(*BasicNode))
 	}
 
 	return enumNodes
@@ -249,6 +261,33 @@ func (en EnumNode) Values() []*DefinitionNode {
 }
 
 func (en EnumNode) Comments() string { return en.comment }
+
+type BasicNode struct {
+	node
+
+	name      *TokenNode
+	basicType *TokenNode
+	meta      []*DefinitionNode
+	comment   string
+}
+
+func (bn BasicNode) Type() NodeType {
+	return BasicNodeType
+}
+
+func (bn BasicNode) Name() *TokenNode {
+	return bn.name
+}
+
+func (bn BasicNode) TypeName() *TokenNode {
+	return bn.basicType
+}
+
+func (bn BasicNode) Meta() []*DefinitionNode {
+	return bn.meta
+}
+
+func (bn BasicNode) Comments() string { return bn.comment }
 
 type StructNode struct {
 	node

@@ -16,6 +16,9 @@ service TestApi
   - GetComplex() => (complex: Complex)
   - SendComplex(complex: Complex)
 
+  - GetMessage() => (message: Message)
+  - SendMessage(message: Message)
+
   # added in v0.11.0
   - GetSchemaError(code: int)
 
@@ -40,6 +43,9 @@ enum Status: uint32
   - AVAILABLE
   - NOT_AVAILABLE
 
+basic Message: []byte
+  + go.type = json.RawMessage
+
 struct Complex
   - meta: map<string,any>
   - metaNestedExample: map<string,map<string,uint32>>
@@ -50,6 +56,7 @@ struct Complex
   - listOfUsers: []User
   - mapOfUsers: map<string,User>
   - user: User
+  - basic: Message
   - status: Status
 
 error   1 Unauthorized    "unauthorized"        HTTP 401

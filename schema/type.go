@@ -9,6 +9,7 @@ import (
 const (
 	TypeKind_Struct = "struct"
 	TypeKind_Enum   = "enum"
+	TypeKind_Basic  = "basic"
 )
 
 type Type struct {
@@ -57,8 +58,8 @@ func (t *Type) Parse(schema *WebRPCSchema) error {
 	}
 
 	// Ensure we have a valid kind
-	if t.Kind != TypeKind_Enum && t.Kind != TypeKind_Struct {
-		return fmt.Errorf("schema error: type must be one of 'enum', or 'struct' for '%s'", typName)
+	if t.Kind != TypeKind_Enum && t.Kind != TypeKind_Struct && t.Kind != TypeKind_Basic {
+		return fmt.Errorf("schema error: type must be one of 'enum', 'basic', or 'struct' for '%s'", typName)
 	}
 
 	// Verify field names and ensure we don't have any duplicate field names

@@ -66,8 +66,8 @@ func (s *ExampleServiceRPC) GetUser(ctx context.Context, header map[string]strin
 	return 200, &User{
 		ID:       userID,
 		Username: "hihi",
-		Kind:     &kind,
-		Intent:   &intent,
+		Kind:     kind,
+		Intent:   intent,
 	}, nil
 }
 

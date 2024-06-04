@@ -12,6 +12,7 @@ import (
 const (
 	wordError   = "error"
 	wordEnum    = "enum"
+	wordBasic   = "basic"
 	wordImport  = "import"
 	wordMap     = "map"
 	wordStruct  = "struct"
@@ -403,6 +404,10 @@ func parserStateDeclaration(p *parser) parserState {
 		// enum <name>: <type>
 		//   - <name>[<space>=<space><value>][<#comment>]
 		return parserStateEnum
+	case wordBasic:
+		// basic <name>: <type>
+		//    + <tag.name> = <VALUE> [<#comment>]
+		return parserStateBasic
 	case "message":
 		// Deprecated in v0.9.0.
 		return p.stateError(fmt.Errorf("keyword \"message\" was renamed to \"struct\", see https://github.com/webrpc/webrpc/blob/master/CHANGELOG.md#ridl-v090-migration-guide"))

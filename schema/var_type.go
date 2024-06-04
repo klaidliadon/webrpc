@@ -146,6 +146,9 @@ func ParseVarTypeExpr(schema *WebRPCSchema, expr string, vt *VarType) error {
 		case TypeKind_Enum:
 			vt.Type = T_Struct // TODO: T_Enum, see https://github.com/webrpc/webrpc/issues/44
 			vt.Struct = &VarStructType{Name: expr, Type: typ}
+		case TypeKind_Basic:
+			vt.Type = T_Struct // TODO: T_Enum, see https://github.com/webrpc/webrpc/issues/44
+			vt.Struct = &VarStructType{Name: expr, Type: typ}
 		default:
 			return fmt.Errorf("schema error: unexpected type '%s'", expr)
 		}
